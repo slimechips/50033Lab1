@@ -47,17 +47,17 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = new Vector2(moveHorizontal, 0);
             if (marioBody.velocity.magnitude < maxSpeed)
                 marioBody.AddForce(movement * speed);
-            
+
         }
         if (Input.GetKeyUp("a") || Input.GetKeyUp("d"))
         {
-            //// Lab 2
-            //if (Mathf.Abs(marioBody.velocity.x) > 0.01)
-            //{
-            //    Debug.Log("skidding");
-            //    animator.SetTrigger("onSkid");
-            //}
-            
+            // Lab 2
+            if (Mathf.Abs(marioBody.velocity.x) > 0.01)
+            {
+                Debug.Log("skidding");
+                animator.SetTrigger("onSkid");
+            }
+
             Debug.Log("asdf");
             marioBody.velocity = Vector2.zero;
         }
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
     // called when the cube hits the floor
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ground")) onGroundState = true;
+        if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Obstacle")) onGroundState = true;
         countScoreState = false; // reset score state
         scoreText.text = "Score: " + score.ToString();
     }
@@ -128,10 +128,10 @@ public class PlayerController : MonoBehaviour
 
 
 
-    //// Lab 2
-    //void PlayJumpSound()
-    //{
-    //    audio.PlayOneShot(audio.clip);
-    //}
+    // Lab 2
+    void PlayJumpSound()
+    {
+        audio.PlayOneShot(audio.clip);
+    }
 
 }

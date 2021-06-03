@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthUIController : MonoBehaviour
 {
-    [SerializeField] Text text;
+    private Text text;
     private static string HEALTH_TEXT = "Health: {0}";
     // Start is called before the first frame update
     void Start()
