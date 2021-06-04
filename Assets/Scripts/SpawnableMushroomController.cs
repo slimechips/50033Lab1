@@ -23,7 +23,7 @@ public class SpawnableMushroomController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!stop && body.velocity == Vector2.zero)
         {
