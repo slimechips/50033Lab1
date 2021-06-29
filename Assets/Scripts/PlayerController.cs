@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameConstants constants;
     public float speed;
     public float upSpeed;
     private Rigidbody2D marioBody;
@@ -19,11 +19,9 @@ public class PlayerController : MonoBehaviour
     private int score = 0;
     private bool countScoreState = false;
 
-    private int health;
-    [SerializeField] private int maxHealth;
-
     private Animator animator;
-    private AudioSource audio;
+    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource skidAudio;
 
     private bool stop = true;
     void Start()
@@ -32,9 +30,7 @@ public class PlayerController : MonoBehaviour
         marioBody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
-        health = maxHealth;
-        MenuController.Instance.HealthText.UpdateHealth(health);
+        GameManager.OnPlayerDeath += PlayerDiesSequence;
     }
 
     void FixedUpdate()
@@ -56,6 +52,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("skidding");
                 animator.SetTrigger("onSkid");
+                skidAudio.PlayOneShot(skidAudio.clip);
             }
 
             Debug.Log("asdf");
@@ -91,16 +88,27 @@ public class PlayerController : MonoBehaviour
             sprite.flipX = false;
         }
 
-        // when jumping, and Gomba is near Mario and we haven't registered our score
-        if (!onGroundState && countScoreState)
+        if (Input.GetKeyDown("z"))
         {
-            if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f)
-            {
-                countScoreState = false;
-                score++;
-                Debug.Log(score);
-            }
+            CentralManager.instance.consumePowerup(KeyCode.Z, this.gameObject);
         }
+
+        if (Input.GetKeyDown("x"))
+        {
+            CentralManager.instance.consumePowerup(KeyCode.X, this.gameObject);
+        }
+
+
+        //// when jumping, and Gomba is near Mario and we haven't registered our score
+        //if (!onGroundState && countScoreState)
+        //{
+        //    if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f)
+        //    {
+        //        countScoreState = false;
+        //        score++;
+        //        Debug.Log(score);
+        //    }
+        //}
 
     }
 
@@ -108,30 +116,50 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Obstacle")) onGroundState = true;
-        countScoreState = false; // reset score state
-        scoreText.text = "Score: " + score.ToString();
+        //countScoreState = false; // reset score state
+        //scoreText.text = "Score: " + score.ToString();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Collided with Gomba!");
-            health--;
-            MenuController.Instance.HealthText.UpdateHealth(health);
-            if (health <= 0)
-            {
-                MenuController.Instance.GameOver();
-            }
-        }
-    }
-
-
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))
+    //    {
+    //        health--;
+    //        MenuController.Instance.HealthText.UpdateHealth(health);
+    //        if (health <= 0)
+    //        {
+    //            MenuController.Instance.GameOver();
+    //        }
+    //    }
+    //}
 
     // Lab 2
     void PlayJumpSound()
     {
         audio.PlayOneShot(audio.clip);
+    }
+
+    void PlayerDiesSequence()
+    {
+        // Mario dies
+        Debug.Log("Mario dies");
+        // do whatever you want here, animate etc
+        // ...
+        StartCoroutine(SpinDeath());
+
+    }
+
+    IEnumerator SpinDeath()
+    {
+        while (transform.localScale.x >= 0)
+        {
+            Vector3 rotator = new Vector3(0, 0, 6);
+            Vector3 scaler = new Vector3(0.01f, 0.01f, 0);
+            transform.rotation = Quaternion.Euler(transform.eulerAngles - rotator);
+            transform.localScale -= scaler;
+            yield return null;
+        }
+        GetComponent<SpriteRenderer>().enabled = false;
     }
 
 }

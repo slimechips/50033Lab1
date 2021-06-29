@@ -9,6 +9,7 @@ public class SpawnableMushroomController : MonoBehaviour
     public int velocity;
     private Vector2 direction;
     private bool stop = false;
+    private bool collected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class SpawnableMushroomController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             stop = true;
+            collected = true;
             body.velocity = Vector2.zero;
             Debug.Log("Mush stop");
         } else if (collision.gameObject.CompareTag("Obstacle"))

@@ -57,15 +57,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ParallaxScroller.cs" />
+    <Compile Include="Assets\Scripts\Managers\PowerupManager.cs" />
     <Compile Include="Assets\Scripts\QuestionBoxController.cs" />
+    <Compile Include="Assets\Scripts\ObjectPooler.cs" />
+    <Compile Include="Assets\Scripts\Managers\CentralManager.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\SpawnableMushroomController.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GameConstants.cs" />
+    <Compile Include="Assets\Scripts\Consumables\SpawnableMushroomController.cs" />
     <Compile Include="Assets\Scripts\Debris.cs" />
+    <Compile Include="Assets\Scripts\Consumables\ConsumableInterface.cs" />
     <Compile Include="Assets\Scripts\HealthUIController.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
+    <Compile Include="Assets\Scripts\Consumables\RedMushroom.cs" />
+    <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Consumables\OrangeMushroom.cs" />
     <Compile Include="Assets\Scripts\BreakBrick.cs" />
+    <Compile Include="Assets\Scripts\Managers\Spawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -29,6 +29,8 @@ public class BreakBrick : MonoBehaviour
             Debug.Log("Collide player");
             broken = true;
 
+            CentralManager.instance.increaseScore();
+
             for (int i = 0; i < 5; ++i)
             {
                 Instantiate(prefab, transform.position, Quaternion.identity);
