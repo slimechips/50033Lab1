@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public Text score;
     private int playerScore = 0;
@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour
     public delegate void gameEvent();
     public static event gameEvent OnPlayerDeath;
     public static event gameEvent OnIncreaseScore;
+    public static event gameEvent OnNextStage;
+
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +42,10 @@ public class GameManager : MonoBehaviour
     {
         OnPlayerDeath();
         MenuController.Instance.GameOver();
+    }
+
+    public void NextStage()
+    {
+        OnNextStage();
     }
 }

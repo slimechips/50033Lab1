@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e05b0ebe77f8d47bd8a0b275757994, type: 3}
+  m_Name: OrangeMushroomPowerup
+  m_EditorClassIdentifier: 
+  DeveloperDescription: 
+  index: 0
+  powerupTexture: {fileID: 2800000, guid: 33ae32c920c27c24c817b89ddc65607b, type: 3}
+  aboluteSpeedBooster: 10
+  absoluteJumpBooster: 0
+  duration: 5

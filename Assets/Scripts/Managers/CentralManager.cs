@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CentralManager : MonoBehaviour
 {
@@ -42,5 +43,24 @@ public class CentralManager : MonoBehaviour
     public void addPowerup(Texture t, int i, ConsumableInterface c)
     {
         powerUpManager.addPowerup(t, i, c);
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        StartCoroutine(LoadYourAsyncScene(sceneName));
+    }
+
+    IEnumerator LoadYourAsyncScene(string sceneName)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    public void NextStage()
+    {
+        GameManager.Instance.NextStage();
     }
 }

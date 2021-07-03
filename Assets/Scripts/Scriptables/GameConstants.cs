@@ -44,4 +44,9 @@ public class GameConstants : ScriptableObject
     public int spawnAmt = 2;
     public int spawnMax = 6;
 
+    // Mario basic starting values
+    public int playerStartingMaxSpeed = 5;
+    public int playerMaxJumpSpeed = 30;
+    public int playerDefaultForce = 150;
+
 }

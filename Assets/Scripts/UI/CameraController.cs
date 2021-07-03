@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
         offset = this.transform.position.x - player.position.x;
         startX = this.transform.position.x;
         endX = endLimit.transform.position.x - viewportHalfWidth;
+
+        GameManager.OnNextStage += StopAudio;
     }
 
     // Update is called once per frame
@@ -32,5 +34,10 @@ public class CameraController : MonoBehaviour
         // check if desiredX is within startX and endX
         if (desiredX > startX && desiredX < endX)
             this.transform.position = new Vector3(desiredX, this.transform.position.y, this.transform.position.z);
+    }
+
+    void StopAudio()
+    {
+        GetComponent<AudioSource>().Stop();
     }
 }
